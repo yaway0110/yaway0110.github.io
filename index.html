@@ -458,12 +458,10 @@
 
     <section class="registration">
       <h2 class="section-title">線上報名</h2>
-      <p class="small-note">請填寫以下資訊完成報名。我們會將報名內容發送到主辦單位信箱 <strong>info@deepradai.com</strong>。</p>
+      <p class="small-note">請填寫以下資訊完成報名。本表單可串接 Google Sheet，報名資料將直接寫入指定試算表。</p>
 
-      <form id="registrationForm" action="https://formsubmit.co/info@deepradai.com" method="POST">
-        <input type="hidden" name="_subject" value="第二屆台灣智慧健檢發展趨勢論壇 報名" />
-        <input type="hidden" name="_template" value="table" />
-        <input type="hidden" name="_captcha" value="false" />
+      <form id="registrationForm" action="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec" method="POST">
+        <!-- 將 YOUR_SCRIPT_ID 換成您的 Google Apps Script 部署 ID -->
 
         <label>
           姓名
@@ -515,7 +513,7 @@
 
         <div class="button-row">
           <button type="submit">立即送出</button>
-          <span class="note">送出後系統將會把內容傳送到主辦單位信箱。</span>
+          <span class="note">送出後資料會送到 Google Sheet（請先設定 Apps Script 端點）。</span>
         </div>
 
         <div class="success-message" id="successMessage">
