@@ -59,14 +59,24 @@
 
     .hero,
     .section,
-    .schedule,
     .speakers,
-    .registration,
     .contact {
       position: relative;
       background: transparent;
       border-radius: 0;
       box-shadow: none;
+      padding: 36px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .schedule,
+    .registration {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: 0 24px 50px var(--shadow);
       padding: 36px;
       margin-bottom: 24px;
       overflow: hidden;
@@ -166,19 +176,19 @@
       width: 100%;
       border-collapse: collapse;
       margin-top: 14px;
-      background: transparent;
+      background: rgba(11, 20, 37, 0.9);
     }
 
     .schedule th,
     .schedule td {
-      border: none;
+      border: 1px solid rgba(255,255,255,0.08);
       padding: 16px 18px;
       text-align: left;
       vertical-align: top;
     }
 
     .schedule th {
-      background: transparent;
+      background: rgba(79, 156, 255, 0.08);
       color: var(--accent);
       font-weight: 700;
     }
@@ -188,7 +198,7 @@
     }
 
     .schedule tr:nth-child(even) {
-      background: transparent;
+      background: rgba(255,255,255,0.03);
     }
 
     .speaker-grid {
@@ -245,9 +255,9 @@
     textarea {
       width: 100%;
       padding: 16px 18px;
-      border: none;
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 16px;
-      background: transparent;
+      background: rgba(4, 10, 18, 0.95);
       color: var(--text);
       font-size: 1rem;
       outline: none;
@@ -304,8 +314,8 @@
     .success-message {
       display: none;
       padding: 18px 20px;
-      background: transparent;
-      border: none;
+      background: rgba(48, 94, 150, 0.18);
+      border: 1px solid rgba(79, 156, 255, 0.2);
       border-radius: 16px;
       color: var(--text);
       margin-top: 10px;
