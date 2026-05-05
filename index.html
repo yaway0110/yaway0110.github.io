@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>第二屆 台灣智慧健檢發展趨勢論壇</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    :root {
+      --bg: #020618;
+      --surface: #07122d;
+      --surface-2: #12254c;
+      --border: rgba(86, 163, 255, 0.18);
+      --text: #edf2ff;
+      --muted: #98b5e0;
+      --accent: #70b8ff;
+      --accent-2: #96dbff;
+      --shadow: rgba(17, 57, 103, 0.35);
+      --card: rgba(11, 20, 38, 0.95);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Inter', 'Microsoft JhengHei', Arial, sans-serif;
+      background: linear-gradient(180deg, #020618 0%, #0b1b36 30%, #142a53 60%, #233f7a 100%);
+      color: var(--text);
+      overflow-x: hidden;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(79, 156, 255, 0.08), transparent 18%), radial-gradient(circle at 80% 15%, rgba(107, 199, 255, 0.05), transparent 22%);
+      pointer-events: none;
+      z-index: -1;
+      animation: drift 22s linear infinite;
+    }
+
+    @keyframes drift {
+      from { transform: translate(0, 0); }
+      to { transform: translate(-40px, 30px); }
+    }
+
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 28px 24px 40px;
+    }
+
+    .hero,
+    .section,
+    .schedule,
+    .speakers,
+    .registration,
+    .contact {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: 0 24px 50px var(--shadow);
+      padding: 36px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .hero::after,
+    .section::after,
+    .schedule::after,
+    .speakers::after,
+    .registration::after,
+    .contact::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 15% 20%, rgba(79, 156, 255, 0.12), transparent 18%), radial-gradient(circle at 85% 10%, rgba(107, 199, 255, 0.08), transparent 16%);
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(3rem, 4vw, 4.4rem);
+      line-height: 1.03;
+      letter-spacing: 0.02em;
+      z-index: 1;
+      position: relative;
+      background: linear-gradient(90deg, #4f9cff 0%, #3dd1b5 55%, #6cf0a4 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      margin: 18px auto 24px;
+      font-size: clamp(1.5rem, 2.8vw, 2.15rem);
+      color: var(--accent);
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      position: relative;
+      z-index: 1;
+      max-width: 840px;
+    }
+
+    .hero p.lead {
+      margin: 0 auto 30px;
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.9;
+      max-width: 760px;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .info-list {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr;
+      position: relative;
+      z-index: 1;
+      align-items: start;
+    }
+
+    .info-item {
+      padding: 16px 12px;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .info-item strong {
+      display: block;
+      color: var(--accent);
+      font-size: 1.15rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .info-item span {
+      color: var(--text);
+      font-size: 1.2rem;
+      line-height: 1.9;
+      font-weight: 500;
+    }
+
+    .section-title {
+      margin: 0 0 20px;
+      font-size: 1.4rem;
+      color: var(--accent);
+      letter-spacing: 0.03em;
+    }
+
+    .schedule table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      background: rgba(11, 20, 37, 0.9);
+    }
+
+    .schedule th,
+    .schedule td {
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 16px 18px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .schedule th {
+      background: rgba(79, 156, 255, 0.08);
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .schedule td {
+      color: var(--muted);
+    }
+
+    .schedule tr:nth-child(even) {
+      background: rgba(255,255,255,0.03);
+    }
+
+    .speaker-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .speaker-card {
+      padding: 22px 20px;
+      border-radius: 18px;
+      border: 1px solid rgba(79, 156, 255, 0.14);
+      background: rgba(9, 21, 40, 0.92);
+    }
+
+    .speaker-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+      color: var(--accent);
+    }
+
+    .speaker-card p {
+      margin: 0;
+      line-height: 1.8;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    form {
+      display: grid;
+      gap: 18px;
+      margin-top: 12px;
+    }
+
+    label {
+      display: grid;
+      gap: 10px;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 16px 18px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      background: rgba(4, 10, 18, 0.95);
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(79, 156, 255, 0.18);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    button {
+      border: 1px solid transparent;
+      border-radius: 16px;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #071022;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.18s ease, filter 0.18s ease;
+    }
+
+    button:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .success-message {
+      display: none;
+      padding: 18px 20px;
+      background: rgba(48, 94, 150, 0.18);
+      border: 1px solid rgba(79, 156, 255, 0.2);
+      border-radius: 16px;
+      color: var(--text);
+      margin-top: 10px;
+    }
+
+    .small-note {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 960px) {
+      .info-list,
+      .speaker-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <h1>第二屆 台灣智慧健檢發展趨勢論壇</h1>
+      <p class="subtitle">慧眼識微，智領未來</p>
+      <p class="lead">本次論壇聚焦台灣智慧健檢的下一步發展，從數位健康整合、智慧醫療應用到健檢流程創新，邀請業界與醫療專家共同剖析趨勢。歡迎踴躍報名~</p>
+
+      <div class="info-list">
+        <div class="info-item">
+          <strong>主題焦點</strong>
+          <span>探索智慧健檢在醫療體系、企業團檢與用戶體驗上的應用與創新。</span>
+        </div>
+        <div class="info-item">
+          <strong>活動時間</strong>
+          <span>7/10 14:00 - 17:00</span>
+        </div>
+        <div class="info-item">
+          <strong>地點</strong>
+          <span>台大國際會議中心</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="schedule">
+      <h2 class="section-title">暫定時程</h2>
+      <p class="small-note">每位主講者約 20 分鐘，內容以智慧健檢與數位健康趨勢為主，具體講者與題目將持續調整。</p>
+      <table>
+        <thead>
+          <tr>
+            <th>時間</th>
+            <th>內容</th>
+            <th>講者 / 單位</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>14:00 - 14:10</td>
+            <td>開場與議程說明</td>
+            <td>主持人 / 神瑞內部</td>
+          </tr>
+          <tr>
+            <td>14:10 - 14:30</td>
+            <td>智慧健檢趨勢與數位健康生態</td>
+            <td>神瑞 行銷長 Ginn</td>
+          </tr>
+          <tr>
+            <td>14:30 - 14:50</td>
+            <td>智慧醫療與健檢流程優化</td>
+            <td>北醫 醫師</td>
+          </tr>
+          <tr>
+            <td>14:50 - 15:10</td>
+            <td>企業團檢與健檢中心升級</td>
+            <td>醫聯網 健檢中心 & 企業團檢</td>
+          </tr>
+          <tr>
+            <td>15:10 - 15:30</td>
+            <td>健康管理與健檢趨勢觀察</td>
+            <td>協會 會員（健康相關、健檢趨勢）</td>
+          </tr>
+          <tr>
+            <td>15:30 - 15:50</td>
+            <td>用戶體驗與智慧健檢實務</td>
+            <td>雙和 何主任</td>
+          </tr>
+          <tr>
+            <td>15:50 - 17:00</td>
+            <td>綜合座談與觀眾提問</td>
+            <td>全體講者</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="speakers">
+      <h2 class="section-title">講者名單（初步規劃）</h2>
+      <div class="speaker-grid">
+        <div class="speaker-card">
+          <h3>神瑞 - 行銷長 Ginn</h3>
+          <p>分享智慧健檢的市場趨勢與品牌策略，並介紹智慧健檢平台的應用方向。</p>
+        </div>
+        <div class="speaker-card">
+          <h3>北醫 - 醫師</h3>
+          <p>從臨床角度說明智慧醫療與數位健康轉型帶來的實務影響。</p>
+        </div>
+        <div class="speaker-card">
+          <h3>醫聯網 - 健檢中心 & 企業團檢</h3>
+          <p>探討企業團檢需求與健檢中心升級路徑，聚焦效率與數據整合。</p>
+        </div>
+        <div class="speaker-card">
+          <h3>協會會員</h3>
+          <p>分析健檢市場趨勢、健康管理與下一階段的產業機會。</p>
+        </div>
+        <div class="speaker-card">
+          <h3>雙和 - 何主任</h3>
+          <p>分享用戶體驗與智慧健檢服務設計，強調病患便利性與流程優化。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="registration">
+      <h2 class="section-title">線上報名</h2>
+      <p class="small-note">請填寫以下資訊完成報名。我們會將報名內容發送到主辦單位信箱 <strong>info@deepradai.com</strong>。</p>
+
+      <form id="registrationForm" action="https://formsubmit.co/info@deepradai.com" method="POST">
+        <input type="hidden" name="_subject" value="第二屆台灣智慧健檢發展趨勢論壇 報名" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+
+        <label>
+          姓名
+          <input type="text" name="name" placeholder="請輸入您的姓名" required />
+        </label>
+
+        <label>
+          電子郵件
+          <input type="email" name="email" placeholder="example@mail.com" required />
+        </label>
+
+        <label>
+          聯絡電話
+          <input type="tel" name="phone" placeholder="+886-9xx-xxx-xxx" required />
+        </label>
+
+        <div class="row">
+          <label>
+            公司 / 機構
+            <input type="text" name="organization" placeholder="公司或單位名稱" />
+          </label>
+
+          <label>
+            參與類型
+            <select name="attendance" required>
+              <option value="">請選擇</option>
+              <option value="一般參加">一般參加</option>
+              <option value="講者">講者</option>
+              <option value="媒體">媒體</option>
+            </select>
+          </label>
+        </div>
+
+        <label>
+          餐點選擇
+          <select name="meal" required>
+            <option value="">請選擇餐點</option>
+            <option value="葷食">葷食</option>
+            <option value="素食">素食</option>
+          </select>
+        </label>
+
+        <label>
+          報名備註
+          <textarea name="notes" placeholder="若要留言、備註參與需求或問卷可填寫"></textarea>
+        </label>
+
+        <div class="button-row">
+          <button type="submit">立即送出</button>
+          <span class="note">送出後系統將會把內容傳送到主辦單位信箱。</span>
+        </div>
+
+        <div class="success-message" id="successMessage">
+          感謝您的報名！報名內容已傳送，請留意您的電子郵件信箱。</div>
+      </form>
+    </section>
+
+    <section class="contact">
+      <h2 class="section-title">聯絡資訊</h2>
+      <p class="small-note">若有任何問題或更改需求，請透過以下方式與我們聯繫。</p>
+      <div class="highlight-cards" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+        <div class="highlight-card">
+          <strong>Email</strong>
+          <span>info@deepradai.com</span>
+        </div>
+        <div class="highlight-card">
+          <strong>電話</strong>
+          <span>+886-2-2655-2255</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("registrationForm");
+    const success = document.getElementById("successMessage");
+
+    function sendForm(event) {
+      event.preventDefault();
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => {
+          if (response.ok) {
+            success.style.display = "block";
+            form.reset();
+          } else {
+            throw new Error("送出失敗");
+          }
+        })
+        .catch(() => {
+          form.removeEventListener("submit", sendForm);
+          form.submit();
+        });
+    }
+
+    form.addEventListener("submit", sendForm);
+  </script>
+</body>
+</html>
