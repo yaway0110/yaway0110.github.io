@@ -555,14 +555,22 @@
 
       fetch("https://script.google.com/macros/s/AKfycbxt5urwFxtBrEnDc9rGUQne_te2MXFRd7ZFFHK6arT-_jyfx2NQFxTCJ9DjzJdHP_V9/exec", {
         method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(formData)
       })
-      .then(function() {
-        document.getElementById("successMessage").style.display = "block";
-        document.getElementById("registrationForm").reset();
+      .then(function(response) {
+        if (response.ok) {
+          document.getElementById("successMessage").style.display = "block";
+          document.getElementById("registrationForm").reset();
+        } else {
+          throw new Error('Network response was not ok');
+        }
       })
-      .catch(function() {
-        alert("送出失敗，請稍後再試");
+      .catch(function(error) {
+        console.error('Error:', error);
+        alert("送出失敗，請稍後再試。錯誤：" + error.message);
       });
     });
   </script>
