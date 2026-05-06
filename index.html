@@ -457,115 +457,70 @@
     </section>
 
     <section class="registration">
-      <h2 class="section-title">線上報名</h2>
-      <p class="small-note">請填寫以下資訊完成報名。本表單可串接 Google Sheet，報名資料將直接寫入指定試算表。</p>
+     <section class="registration">
+  <h2 class="section-title">線上報名</h2>
+  <p class="small-note">請填寫以下資訊完成報名。本表單送出後，資料將直接寫入 Google 試算表。</p>
 
-      <form id="registrationForm">
-        <label>
-          姓名
-          <input type="text" name="name" placeholder="請輸入您的姓名" required />
-        </label>
+  <form 
+    id="registrationForm"
+    action="https://script.google.com/macros/s/AKfycbzui_Rk8l381mAo3Nt3RL_ZJjjWsFedpzLQUTgiB65N8gy1WY2nJTEHPjpmTU5mgNMT/exec"
+    method="POST"
+  >
+    <label>
+      姓名
+      <input type="text" name="姓名" placeholder="請輸入您的姓名" required />
+    </label>
 
-        <label>
-          電子郵件
-          <input type="email" name="email" placeholder="example@mail.com" required />
-        </label>
+    <label>
+      電子郵件
+      <input type="email" name="電子郵件" placeholder="example@mail.com" required />
+    </label>
 
-        <label>
-          聯絡電話
-          <input type="tel" name="phone" placeholder="+886-9xx-xxx-xxx" required />
-        </label>
+    <label>
+      連絡電話
+      <input type="tel" name="連絡電話" placeholder="0912-345-678" required />
+    </label>
 
-        <div class="row">
-          <label>
-            公司 / 機構
-            <input type="text" name="organization" placeholder="公司或單位名稱" />
-          </label>
+    <div class="row">
+      <label>
+        公司 / 機構
+        <input type="text" name="公司機構" placeholder="公司或單位名稱" />
+      </label>
 
-          <label>
-            參與類型
-            <select name="attendance" required>
-              <option value="">請選擇</option>
-              <option value="一般參加">一般參加</option>
-              <option value="醫療院所">醫療院所</option>
-              <option value="企業／團檢單位">企業／團檢單位</option>
-              <option value="媒體">媒體</option>
-              <option value="其他">其他</option>
-            </select>
-          </label>
-        </div>
+      <label>
+        參與類型
+        <select name="參與類型" required>
+          <option value="">請選擇</option>
+          <option value="一般參加">一般參加</option>
+          <option value="醫療院所">醫療院所</option>
+          <option value="企業／團檢單位">企業／團檢單位</option>
+          <option value="媒體">媒體</option>
+          <option value="其他">其他</option>
+        </select>
+      </label>
+    </div>
 
-        <label>
-          餐點選擇
-          <select name="meal" required>
-            <option value="">請選擇餐點</option>
-            <option value="葷食">葷食</option>
-            <option value="素食">素食</option>
-          </select>
-        </label>
+    <label>
+      餐點選擇
+      <select name="餐點選擇" required>
+        <option value="">請選擇餐點</option>
+        <option value="葷食">葷食</option>
+        <option value="素食">素食</option>
+      </select>
+    </label>
 
-        <label>
-          報名備註
-          <textarea name="notes" placeholder="若要留言、備註參與需求或問卷可填寫"></textarea>
-        </label>
+    <label>
+      報名備註
+      <textarea name="報名備註" placeholder="若要留言、備註參與需求或問卷可填寫"></textarea>
+    </label>
 
-        <div class="button-row">
-          <button type="submit">立即送出</button>
-          <span class="note">送出後資料將直接寫入 Google Sheet。</span>
-        </div>
+    <div class="button-row">
+      <button type="submit">立即送出</button>
+      <span class="note">送出後資料將直接寫入 Google Sheet。</span>
+    </div>
 
-        <div class="success-message" id="successMessage">
-          感謝您的報名！主辦單位已收到您的報名資訊，後續活動通知將寄送至您填寫的電子郵件信箱，請留意信件。</div>
-      </form>
-    </section>
-
-    <section class="contact">
-      <h2 class="section-title">聯絡資訊</h2>
-      <p class="small-note">若有任何問題或更改需求，請透過以下方式與我們聯繫。</p>
-      <div class="highlight-cards" style="grid-template-columns: repeat(1, minmax(0, 1fr));">
-        <div class="highlight-card">
-          <strong>主辦單位</strong>
-          <span>神瑞人工智慧股份有限公司</span>
-        </div>
-        <div class="highlight-card">
-          <strong>Email</strong>
-          <span>info@deepradai.com</span>
-        </div>
-        <div class="highlight-card">
-          <strong>電話</strong>
-          <span>+886-2-2655-2255</span>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script>
-    document.getElementById("registrationForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      const scriptUrl = "https://script.google.com/macros/s/AKfycbxt5urwFxtBrEnDc9rGUQne_te2MXFRd7ZFFHK6arT-_jyfx2NQFxTCJ9DjzJdHP_V9/exec";
-      const formData = new FormData(this);
-
-      fetch(scriptUrl, {
-        method: "POST",
-        body: formData,
-        mode: "cors"
-      })
-      .then(function(response) {
-        if (response.ok) {
-          document.getElementById("successMessage").style.display = "block";
-          document.getElementById("registrationForm").reset();
-        } else {
-          return response.text().then(function(text) {
-            throw new Error(text || 'Network response was not ok');
-          });
-        }
-      })
-      .catch(function(error) {
-        console.error('Error:', error);
-        alert("送出失敗，請稍後再試。錯誤：" + error.message);
-      });
-    });
-  </script>
-</body>
-</html>
+    <div class="success-message" id="successMessage">
+      感謝您的報名！主辦單位已收到您的報名資訊，後續活動通知將寄送至您填寫的電子郵件信箱，請留意信件。
+    </div>
+  </form>
+</section>
