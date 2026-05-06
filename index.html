@@ -553,21 +553,16 @@
         notes: this.notes.value
       };
 
-      // 替換成你的 Google Apps Script Web App URL
-      const scriptUrl = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
-
-      fetch(scriptUrl, {
+      fetch("https://script.google.com/macros/s/AKfycbzui_Rk8l381mAo3Nt3RL_ZJjjWsFedpzLQUTgiB65N8gy1WY2nJTEHPjpmTU5mgNMT/exec", {
         method: "POST",
         body: JSON.stringify(formData)
       })
-      .then(res => res.text())
-      .then(data => {
+      .then(function() {
         document.getElementById("successMessage").style.display = "block";
-        this.reset();
+        document.getElementById("registrationForm").reset();
       })
-      .catch(err => {
+      .catch(function() {
         alert("送出失敗，請稍後再試");
-        console.error(err);
       });
     });
   </script>
