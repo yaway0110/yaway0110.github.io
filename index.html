@@ -543,29 +543,22 @@
     document.getElementById("registrationForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
-      const formData = {
-        name: this.name.value,
-        email: this.email.value,
-        phone: this.phone.value,
-        organization: this.organization.value,
-        attendance: this.attendance.value,
-        meal: this.meal.value,
-        notes: this.notes.value
-      };
+      const scriptUrl = "https://script.google.com/macros/s/AKfycbxt5urwFxtBrEnDc9rGUQne_te2MXFRd7ZFFHK6arT-_jyfx2NQFxTCJ9DjzJdHP_V9/exec";
+      const formData = new FormData(this);
 
-      fetch("https://script.google.com/macros/s/AKfycbxt5urwFxtBrEnDc9rGUQne_te2MXFRd7ZFFHK6arT-_jyfx2NQFxTCJ9DjzJdHP_V9/exec", {
+      fetch(scriptUrl, {
         method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
+        body: formData,
+        mode: "cors"
       })
       .then(function(response) {
         if (response.ok) {
           document.getElementById("successMessage").style.display = "block";
           document.getElementById("registrationForm").reset();
         } else {
-          throw new Error('Network response was not ok');
+          return response.text().then(function(text) {
+            throw new Error(text || 'Network response was not ok');
+          });
         }
       })
       .catch(function(error) {
