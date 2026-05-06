@@ -460,9 +460,7 @@
       <h2 class="section-title">線上報名</h2>
       <p class="small-note">請填寫以下資訊完成報名。本表單可串接 Google Sheet，報名資料將直接寫入指定試算表。</p>
 
-      <form id="registrationForm" action="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec" method="POST">
-        <!-- 將 YOUR_SCRIPT_ID 換成您的 Google Apps Script 部署 ID -->
-
+      <form id="registrationForm">
         <label>
           姓名
           <input type="text" name="name" placeholder="請輸入您的姓名" required />
@@ -513,7 +511,7 @@
 
         <div class="button-row">
           <button type="submit">立即送出</button>
-          <span class="note">送出後資料會送到 Google Sheet（請先設定 Apps Script 端點）。</span>
+          <span class="note">送出後資料將直接寫入 Google Sheet。</span>
         </div>
 
         <div class="success-message" id="successMessage">
@@ -542,32 +540,36 @@
   </main>
 
   <script>
-    const form = document.getElementById("registrationForm");
-    const success = document.getElementById("successMessage");
+    document.getElementById("registrationForm").addEventListener("submit", function(e) {
+      e.preventDefault();
 
-    function sendForm(event) {
-      event.preventDefault();
-      const formData = new FormData(form);
+      const formData = {
+        name: this.name.value,
+        email: this.email.value,
+        phone: this.phone.value,
+        organization: this.organization.value,
+        attendance: this.attendance.value,
+        meal: this.meal.value,
+        notes: this.notes.value
+      };
 
-      fetch(form.action, {
+      // 替換成你的 Google Apps Script Web App URL
+      const scriptUrl = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
+
+      fetch(scriptUrl, {
         method: "POST",
-        body: formData,
+        body: JSON.stringify(formData)
       })
-        .then((response) => {
-          if (response.ok) {
-            success.style.display = "block";
-            form.reset();
-          } else {
-            throw new Error("送出失敗");
-          }
-        })
-        .catch(() => {
-          form.removeEventListener("submit", sendForm);
-          form.submit();
-        });
-    }
-
-    form.addEventListener("submit", sendForm);
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("successMessage").style.display = "block";
+        this.reset();
+      })
+      .catch(err => {
+        alert("送出失敗，請稍後再試");
+        console.error(err);
+      });
+    });
   </script>
 </body>
 </html>
